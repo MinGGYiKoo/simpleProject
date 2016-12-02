@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>1</title>
+	<script type="text/javascript" src="./angular.min.js"></script>
+	<script type="text/javascript" src="./angular-ui-router.min.js"></script>
+</head>
+<body>
+	<div ng-app="last" ng-controller="lastOne">
+		<div ui-view></div>
+	</div>
+</body>
+</html>
+	<script type="text/javascript">
+		var m = angular.module('last',['ui.router']);
+		m.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider){
+			$urlRouterProvider.otherwise('one');
+			$stateProvider
+					.state('one',{
+						url:'/one',
+						template:"<h1>welcome</h1>"
+					})
+					.state('home',{
+						url:'/home',
+						templateUrl:'view/home.html',
+						controller:'lastOne'
+					})
+					.state('user',{
+						url:'/user/{id}',
+						template:'用户界面：{{user}}',
+						controller:'lastOne'
+					})
+		}]);
+		m.controller('lastOne',['$scope','$stateParams',function($scope,$stateParams){
+					 $scope.user = [
+			            {id:1,name:'奥特曼'},
+			            {id:2,name:'咸蛋超人'},
+			        ];
+			        if(id=$stateParams.id){
+			        	for(var i=0;i<$scope.user.length;i++){
+			        		 if($scope.user[i].id==id){
+                   
+                    		$scope.user = $scope.user[i].name;
+               				 }
+			        	}
+			        }
+		}])
+
+	</script>
